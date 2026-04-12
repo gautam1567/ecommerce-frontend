@@ -6,40 +6,42 @@
     <title>E-Commerce Frontend</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
-
- <body>
+<body>
 
 <header class="header">
-    <!-- Logo -->
-    <div class="logo">MyStore</div>
+    <a href="index.html" class="logo">🛒 MyStore</a>
 
-    <!-- Navigation Links -->
     <nav class="nav" id="navMenu">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
+        <a href="index.html">Home</a>
+        <a href="#products">Products</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
     </nav>
 
-    <!-- Right Section -->
     <div class="right-section">
-        <!-- Search Bar -->
         <input type="text" placeholder="Search products..." class="search-bar">
-
-        <!-- Cart -->
         <div class="cart">
             🛒
             <span class="cart-count">0</span>
         </div>
-
-        <!-- Hamburger Menu -->
-        <div class="hamburger" id="hamburger">
-            ☰
-        </div>
+        <div class="hamburger" id="hamburger" aria-label="Open menu">☰</div>
     </div>
 </header>
 
-<script src="scripts/app.js"></script>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Biggest Sale of the Year 🎉</h1>
+        <p>Up to 70% OFF on all products</p>
+        <button class="cta-btn" type="button">Shop Now</button>
+    </div>
+</section>
 
+<section class="products" id="products">
+    <h2>Our Products</h2>
+    <div class="product-grid" id="productGrid"></div>
+</section>
+
+<script src="scripts/cart-utils.js"></script>
+<script src="scripts/app.js"></script>
 </body>
 </html>
