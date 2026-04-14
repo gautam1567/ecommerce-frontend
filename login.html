@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in — MyStore</title>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <link rel="stylesheet" href="styles/main.min.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="logo">🛒 MyStore</a>
+
+    <nav class="nav" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="cart.html">Cart</a>
+        <span class="auth-nav__guest" id="authNavGuest">
+            <a href="login.html" class="auth-nav__link" aria-current="page">Log in</a>
+            <a href="signup.html" class="auth-nav__link">Sign up</a>
+        </span>
+        <span class="auth-nav__user" id="authNavUser" hidden>
+            <span class="auth-nav__name" id="authNavName"></span>
+            <button type="button" class="auth-nav__logout" id="authLogoutBtn">Log out</button>
+        </span>
+        <a href="#">About</a>
+    </nav>
+
+    <div class="right-section">
+        <input type="text" placeholder="Search products..." class="search-bar">
+        <div class="cart" aria-live="polite">
+            🛒
+            <span class="cart-count">0</span>
+        </div>
+        <div class="hamburger" id="hamburger" aria-label="Open menu">☰</div>
+    </div>
+</header>
+
+<main class="auth-page">
+    <div class="auth-card">
+        <h1 class="auth-card__title">Log in</h1>
+        <p class="auth-card__subtitle">Welcome back. Sign in to continue.</p>
+
+        <form id="loginForm" class="auth-form" novalidate>
+            <div class="auth-field">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" name="email" autocomplete="email" required
+                    aria-describedby="loginEmailError" aria-invalid="false">
+                <p class="auth-field__error" id="loginEmailError" role="alert" hidden></p>
+            </div>
+
+            <div class="auth-field">
+                <div class="auth-field__label-row">
+                    <label for="loginPassword">Password</label>
+                </div>
+                <div class="auth-field__input-wrap">
+                    <input type="password" id="loginPassword" name="password" autocomplete="current-password" required
+                        aria-describedby="loginPasswordError" aria-invalid="false">
+                    <button type="button" class="auth-toggle-pw" id="loginPwToggle" aria-label="Show password" aria-pressed="false">Show</button>
+                </div>
+                <p class="auth-field__error" id="loginPasswordError" role="alert" hidden></p>
+            </div>
+
+            <div class="auth-row auth-row--between">
+                <label class="auth-checkbox">
+                    <input type="checkbox" name="remember" id="loginRemember">
+                    <span>Remember me</span>
+                </label>
+                <a href="forgot-password.html" class="auth-inline-link">Forgot password?</a>
+            </div>
+
+            <p class="auth-form__banner auth-form__banner--success" id="loginSuccess" role="status" hidden></p>
+
+            <button type="submit" class="btn btn--primary auth-submit" id="loginSubmitBtn">Log in</button>
+        </form>
+
+        <p class="auth-switch">
+            New here?
+            <a href="signup.html" class="auth-inline-link auth-inline-link--strong">Create an account</a>
+        </p>
+    </div>
+</main>
+
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script defer src="scripts/firebase-config.js"></script>
+<script defer src="scripts/firebase-auth.min.js"></script>
+<script defer src="scripts/auth-nav.min.js"></script>
+<script defer src="scripts/cart-utils.min.js"></script>
+<script defer src="scripts/app.min.js"></script>
+<script defer src="scripts/auth-forms.min.js"></script>
+</body>
+</html>

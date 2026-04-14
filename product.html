@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://dummyjson.com" crossorigin>
+    <link rel="dns-prefetch" href="https://dummyjson.com">
+    <link rel="stylesheet" href="styles/main.min.css">
 </head>
 <body>
 
 <header class="header header--simple">
     <a href="index.html" class="logo">🛒 MyStore</a>
     <div class="header-actions">
-        <nav class="nav">
+        <nav class="nav" id="navMenu">
             <a href="index.html">Back to shop</a>
+            <a href="cart.html">Cart</a>
+            <span class="auth-nav__guest" id="authNavGuest">
+                <a href="login.html" class="auth-nav__link">Log in</a>
+                <a href="signup.html" class="auth-nav__link">Sign up</a>
+            </span>
+            <span class="auth-nav__user" id="authNavUser" hidden>
+                <span class="auth-nav__name" id="authNavName"></span>
+                <button type="button" class="auth-nav__logout" id="authLogoutBtn">Log out</button>
+            </span>
         </nav>
         <div class="right-section">
             <div class="cart" aria-live="polite">
@@ -27,7 +40,13 @@
     <p>Loading product...</p>
 </section>
 
-<script src="scripts/cart-utils.js"></script>
-<script src="scripts/product.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script defer src="scripts/firebase-config.js"></script>
+<script defer src="scripts/firebase-auth.min.js"></script>
+<script defer src="scripts/auth-nav.min.js"></script>
+<script defer src="scripts/cart-utils.min.js"></script>
+<script defer src="scripts/app.min.js"></script>
+<script defer src="scripts/product.min.js"></script>
 </body>
 </html>

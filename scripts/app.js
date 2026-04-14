@@ -38,24 +38,40 @@ async function fetchProducts() {
 
 // Display products
 function displayProducts(products) {
-    productGrid.innerHTML = "";
+    productGrid.replaceChildren();
 
-    products.forEach(product => {
+    products.forEach((product) => {
         const card = document.createElement("div");
         card.classList.add("product-card");
 
-        card.innerHTML = `
-            <img src="${product.thumbnail}">
-            <h3>${product.title}</h3>
-            <p>$${product.price}</p>
-            <button onclick="viewProduct(${product.id})">View</button>
-        `;
+        const img = document.createElement("img");
+        img.src = product.thumbnail || "";
+        img.alt = product.title || "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.sizes = "(max-width: 768px) 90vw, (max-width: 992px) 45vw, 22vw";
+        img.width = 300;
+        img.height = 200;
 
+        const h3 = document.createElement("h3");
+        h3.textContent = product.title || "";
+
+        const price = document.createElement("p");
+        price.textContent = `$${product.price}`;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = "View";
+        btn.addEventListener("click", () => {
+            window.location.href = `product.html?id=${product.id}`;
+        });
+
+        card.append(img, h3, price, btn);
         productGrid.appendChild(card);
     });
 }
 
-// Redirect to product page
+// Redirect to product page (kept for any legacy onclick references)
 function viewProduct(id) {
     window.location.href = `product.html?id=${id}`;
 }

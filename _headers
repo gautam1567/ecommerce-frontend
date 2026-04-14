@@ -1,0 +1,9 @@
+# Netlify / compatible static hosts — long cache for versioned/minified assets
+/styles/*
+  Cache-Control: public, max-age=2592000
+
+/scripts/*.min.js
+  Cache-Control: public, max-age=2592000
+
+/*.html
+  Cache-Control: public, max-age=300

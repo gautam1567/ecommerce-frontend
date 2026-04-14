@@ -230,7 +230,7 @@ function displayProduct(product) {
             data-color-index="${i}"
             title="${escapeHtml(v.label)}"
             aria-label="${escapeHtml(v.label)}">
-            <img src="${escapeHtml(v.url)}" alt="" draggable="false">
+            <img src="${escapeHtml(v.url)}" alt="" draggable="false" loading="lazy" decoding="async" sizes="56px" width="52" height="52">
         </button>`
         )
         .join("");
@@ -248,7 +248,7 @@ function displayProduct(product) {
             <div class="detail-media">
                 <p class="zoom-hint" aria-hidden="true"></p>
                 <div class="image-zoom-viewport" id="imageZoomViewport">
-                    <img id="mainImage" src="${mainSrc}" alt="${title}" draggable="false">
+                    <img id="mainImage" src="${mainSrc}" alt="${title}" draggable="false" fetchpriority="high" loading="eager" decoding="async" sizes="(max-width: 768px) 90vw, 400px" width="400" height="400">
                 </div>
                 <div class="variation-group variation-group--swatches">
                     <span class="variation-label">Color</span>
@@ -354,22 +354,31 @@ function addToCart() {
         quantity,
         size: sizeLabel,
         color: colorLabel,
-        variantKey: `${currentProduct.id}-${selectedSizeId}-${selectedColorIndex}`
+        variantKey: `${currentProduct.id}-${selectedSizeId}-${selectedColorIndex}`,
+        maxQty: maxQuantity
     };
 
-    let cart = [];
-    try {
-        cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    } catch {
-        cart = [];
+    if (typeof addOrMergeCartLine !== "function") {
+        return;
     }
 
-    cart.push(line);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    const result = addOrMergeCartLine(line, maxQuantity);
 
-    if (typeof updateCartCountDisplay === "function") {
-        updateCartCountDisplay();
+    if (result.added < 1) {
+        showCartToast("Cannot add more — stock limit reached for this option.");
+        return;
     }
+
+    let msg;
+    if (result.merged) {
+        msg = `${currentProduct.title} (${colorLabel}, ${sizeLabel}) — ${result.newTotal} in cart`;
+    } else {
+        msg = `Added ${result.added} × ${currentProduct.title} (${colorLabel}, ${sizeLabel})`;
+    }
+    if (result.capped) {
+        msg += " — quantity adjusted to match stock";
+    }
+    showCartToast(msg);
 
     const cartIcon = document.querySelector(".header .cart");
     if (cartIcon) {
@@ -383,7 +392,6 @@ function addToCart() {
         window.setTimeout(() => addBtn.classList.remove("is-success"), 700);
     }
 
-    showCartToast(`Added ${quantity} × ${currentProduct.title} (${colorLabel}, ${sizeLabel})`);
 }
 
 fetchProduct();
